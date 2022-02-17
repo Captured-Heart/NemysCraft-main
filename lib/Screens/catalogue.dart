@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:nemy_krafts/DesktopMode/DesktopWidgets/2nd%20Div/youtube_sample.dart';
-import 'package:nemy_krafts/TabletMode/tablet.dart';
 
 class CataloguePage extends StatelessWidget {
   const CataloguePage({Key? key}) : super(key: key);
