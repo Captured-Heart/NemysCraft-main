@@ -123,7 +123,7 @@ class AboutLeftDiv extends StatelessWidget {
           Center(
             child: SizedBox(
               width: Responsive.isDesktop(context)
-                  ? size.width * 0.20
+                  ? size.width * 0.30
                   : size.width * 0.8,
               child: SubmitButton(
                 text: 'View Our Catalogue',
