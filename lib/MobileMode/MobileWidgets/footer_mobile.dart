@@ -93,18 +93,22 @@ class FooterMobileOptions extends StatelessWidget {
             FollowUsListTiles(
               text: 'FACEBOOK',
               icon: FontAwesomeIcons.facebookF,
+              iconColor: Colors.blue,
             ),
             FollowUsListTiles(
               text: 'TWITTER',
               icon: FontAwesomeIcons.twitter,
+              iconColor: Colors.lightBlue,
             ),
             FollowUsListTiles(
               text: 'INSTAGRAM',
               icon: FontAwesomeIcons.instagram,
+              iconColor: Colors.pink.shade300,
             ),
             FollowUsListTiles(
               text: 'WHATSAPP',
               icon: FontAwesomeIcons.whatsapp,
+              iconColor: Colors.green,
             ),
           ],
         ),

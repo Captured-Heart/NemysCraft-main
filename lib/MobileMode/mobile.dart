@@ -82,7 +82,7 @@ class MobileAppBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            Icon(Icons.search),
+            Text(''),
           ],
         ),
       ],
@@ -104,8 +104,12 @@ class NemyDrawer extends StatelessWidget {
     return Container(
       // height: size.height * 0.4,
       margin: EdgeInsets.only(
-        bottom: Responsive.isMobile(context)? size.height * 0.4 : size.height * 0.16,
-        top: Responsive.isMobile(context) ? size.height * 0.155 : size.height * 0.15,
+        bottom: Responsive.isMobile(context)
+            ? size.height * 0.4
+            : size.height * 0.16,
+        top: Responsive.isMobile(context)
+            ? size.height * 0.155
+            : size.height * 0.15,
         right: size.height * 0.25,
       ),
       child: Drawer(

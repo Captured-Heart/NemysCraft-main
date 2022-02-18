@@ -5,10 +5,11 @@ class FollowUsListTiles extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.text,
-    this.urlString,
+    this.urlString, required this.iconColor,
   }) : super(key: key);
   final IconData icon;
   final String? text, urlString;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class FollowUsListTiles extends StatelessWidget {
       contentPadding: EdgeInsets.symmetric(horizontal: 5),
       leading: Icon(
         icon,
-        color: Colors.white,
+        color: iconColor,
       ),
       title: Text(
         text!,

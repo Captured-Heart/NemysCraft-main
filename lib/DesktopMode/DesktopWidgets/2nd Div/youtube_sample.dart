@@ -21,7 +21,7 @@ class YoutubeSample extends StatelessWidget {
       },
       child: SizedBox(
         width: Responsive.isDesktop(context)
-            ? size.width * 0.22
+            ? size.width * 0.20
             : size.width * 0.41,
         child: Card(
           // width: size.width * 0.22,

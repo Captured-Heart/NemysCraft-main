@@ -10,9 +10,10 @@ import '../DesktopMode/DesktopWidgets/footer/footer.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
-    Key? key, this.scaffoldkey,
+    Key? key,
+    this.scaffoldkey,
   }) : super(key: key);
-  
+
   final GlobalKey<ScaffoldState>? scaffoldkey;
 
   @override
@@ -64,19 +65,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.black,
-      leading: !Responsive.isDesktop(context) ? Builder(
-        builder: (context) {
-          return IconButton(
-            icon: Icon(
-              Icons.menu,
-              color: Colors.white,
-            ),
-            onPressed: () {
-             Scaffold.of(context).openDrawer();
-            },
-          );
-        }
-      ) : null,
+      leading: !Responsive.isDesktop(context)
+          ? Builder(builder: (context) {
+              return IconButton(
+                icon: Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            })
+          : null,
       centerTitle: Responsive.isMobile(context) || Responsive.isTablet(context)
           ? true
           : false,
@@ -96,7 +97,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Icon(Icons.search),
+                  Text(''),
                 ],
               ),
       ],
@@ -107,7 +108,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight * 1.4);
 }
-
 
 class NavBarOptions extends StatefulWidget {
   const NavBarOptions({
@@ -197,10 +197,10 @@ class _NavBarOptionsState extends State<NavBarOptions> {
               ),
               Row(
                 children: [
-                  Icon(Icons.search),
+                  Text(''),
                   SizedBox(width: 3),
                   Text(
-                    'Search',
+                    '',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
