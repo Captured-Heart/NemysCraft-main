@@ -19,50 +19,52 @@ class About extends StatelessWidget {
         backgroundColor: Colors.black,
         appBar: CustomAppBar(size: size),
         drawer: Responsive.isDesktop(context) ? null : NemyDrawer(size: size),
-        body: SizedBox(
-          height: size.height,
-          width: size.width,
-          child: Responsive.isDesktop(context)
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                            // height: size.height * 0.55,
-                            width: size.width * 0.45,
-                            // color: Colors.red,
-                            // ignore: prefer_const_literals_to_create_immutables
-                            child: AboutLeftDiv(
-                                size: size, placeHolder: placeHolder),
-                          ),
-                          SizedBox(
-                            // height: size.height * 0.55,
-                            width: size.width * 0.3,
-                            // color: Colors.teal,
-                            child: AboutRightDiv(
-                                placeHolder2: placeHolder2, size: size),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      CapturedHeart()
-                    ],
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: size.height,
+            width: size.width,
+            child: Responsive.isDesktop(context)
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              // height: size.height * 0.55,
+                              width: size.width * 0.4,
+                              // color: Colors.red,
+                              // ignore: prefer_const_literals_to_create_immutables
+                              child: AboutLeftDiv(
+                                  size: size, placeHolder: placeHolder),
+                            ),
+                            SizedBox(
+                              // height: size.height * 0.55,
+                              width: size.width * 0.3,
+                              // color: Colors.teal,
+                              child: AboutRightDiv(
+                                  placeHolder2: placeHolder2, size: size),
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        CapturedHeart()
+                      ],
+                    ),
+                  )
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        AboutLeftDiv(size: size, placeHolder: placeHolder),
+                        AboutRightDiv(placeHolder2: placeHolder2, size: size),
+                        SizedBox(height: 5),
+                        CapturedHeart()
+                      ],
+                    ),
                   ),
-                )
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      AboutLeftDiv(size: size, placeHolder: placeHolder),
-                      AboutRightDiv(placeHolder2: placeHolder2, size: size),
-                      SizedBox(height: 5),
-                      CapturedHeart()
-                    ],
-                  ),
-                ),
+          ),
         ));
   }
 }
@@ -91,7 +93,7 @@ class AboutLeftDiv extends StatelessWidget {
               children: [
                 SizedBox(
                   height: Responsive.isDesktop(context)
-                      ? size.height * 0.18
+                      ? size.height * 0.12
                       : size.height * 0.12,
                   child: VerticalDivider(
                     width: 2,
@@ -101,6 +103,7 @@ class AboutLeftDiv extends StatelessWidget {
                 ),
                 SizedBox(width: 15),
                 SizedBox(
+                  // color:Colors.red,
                   width: Responsive.isDesktop(context)
                       ? size.width * 0.2
                       : size.width * 0.8,
@@ -116,9 +119,12 @@ class AboutLeftDiv extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            placeHolder,
-            style: TextStyle(color: Colors.grey, letterSpacing: 1.2),
+          Padding(
+            padding:  EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              placeHolder,
+              style: TextStyle(color: Colors.grey, letterSpacing: 1.2),
+            ),
           ),
           Center(
             child: SizedBox(
@@ -161,12 +167,12 @@ class AboutRightDiv extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
             child: Responsive.isDesktop(context)
                 ? Text(
-                    'What We Do',
+                    'WHAT WE DO',
                     style: TextStyle(
                       color: Responsive.isDesktop(context)
                           ? Colors.blueAccent.shade100
                           : Colors.white,
-                      fontSize: Responsive.isDesktop(context) ? 20 : 30,
+                      fontSize: Responsive.isDesktop(context) ? 40 : 30,
                       fontWeight: FontWeight.bold,
                     ),
                   )
@@ -282,11 +288,11 @@ class AboutRightDivOptions extends StatelessWidget {
     return ListTile(
       dense: true,
       minLeadingWidth: 6,
-      // contentPadding: EdgeInsets.symmetric(horizontal: 30),
+      contentPadding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       // isThreeLine: true,
       leading: Padding(
         padding: EdgeInsets.only(right: 10.0),
-        child: Icon(icon, size: size.height * 0.06),
+        child: Icon(icon, size: size.height * 0.04),
       ),
       title: Padding(
         padding: EdgeInsets.only(

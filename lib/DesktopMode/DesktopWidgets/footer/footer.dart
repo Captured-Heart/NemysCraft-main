@@ -80,7 +80,7 @@ class Footer extends StatelessWidget {
               ),
 
               Container(
-                width: size.width * 0.1,
+                width: size.width * 0.15,
                 height: size.height * 0.45,
                 // color: Colors.green,
                 child: Column(
@@ -149,6 +149,9 @@ class JoinUsWidget extends StatelessWidget {
     return Container(
       width: Responsive.isDesktop(context) ? size.width * 0.35 : size.width,
       height: Responsive.isDesktop(context) ? size.height * 0.45 : null,
+      margin: Responsive.isDesktop(context)
+          ? EdgeInsets.only(right: 40)
+          : EdgeInsets.only(right: 2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -221,6 +224,7 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: size.width,
+      height: size.height * 0.08,
       padding: EdgeInsets.symmetric(
         vertical: Responsive.isDesktop(context) ? 15 : 5,
       ),
