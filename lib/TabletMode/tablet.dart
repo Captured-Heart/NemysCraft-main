@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nemy_krafts/DesktopMode/DesktopScreens/third_div.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/footer_mobile.dart';
+import 'package:nemy_krafts/MobileMode/MobileWidgets/ist_div_mobile.dart';
 import 'package:nemy_krafts/MobileMode/mobile.dart';
 import '../DesktopMode/DesktopWidgets/ist div/welcome_border.dart';
+import '../MobileMode/MobileWidgets/mobile_util.dart';
 
 class TabletMode extends StatefulWidget {
   const TabletMode({Key? key}) : super(key: key);
@@ -15,6 +17,52 @@ class _TabletModeState extends State<TabletMode> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    final List<Widget> imageSliders = MobileUtil()
+        .imgList
+        .map((item) => Container(
+              margin: EdgeInsets.all(5.0),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  child: Stack(
+                    children: <Widget>[
+                      Image.asset(
+                        item,
+                        fit: BoxFit.fill,
+                        // width: 1000.0,
+                        height: size.height,
+                      ),
+                      // Positioned(
+                      //   bottom: 0.0,
+                      //   left: 0.0,
+                      //   right: 0.0,
+                      //   child: Container(
+                      //     // decoration: BoxDecoration(
+                      //     //   gradient: LinearGradient(
+                      //     //     colors: [
+                      //     //       Color.fromARGB(200, 0, 0, 0),
+                      //     //       Color.fromARGB(0, 0, 0, 0)
+                      //     //     ],
+                      //     //     begin: Alignment.bottomCenter,
+                      //     //     end: Alignment.topCenter,
+                      //     //   ),
+                      //     // ),
+                      //     padding: EdgeInsets.symmetric(
+                      //         vertical: 10.0, horizontal: 20.0),
+                      //     child: Text(
+                      //       'No. ${imgList.indexOf(item)} image',
+                      //       style: TextStyle(
+                      //         color: Colors.white,
+                      //         fontSize: 20.0,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  )),
+            ))
+        .toList();
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size.square(80),
@@ -48,10 +96,10 @@ class _TabletModeState extends State<TabletMode> {
                       // color: Colors.green,
                       child: TabletWelcomeToNemyWidget(size: size),
                     ),
-                    Container(
-                      width: size.width * 0.4,
-                      color: Colors.yellow,
-                    ),
+                    CarouselMobile(
+                      imageSliders: imageSliders,
+                      size: size,
+                    )
                   ],
                 ),
               ),

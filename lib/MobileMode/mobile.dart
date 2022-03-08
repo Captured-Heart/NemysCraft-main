@@ -4,6 +4,7 @@ import 'package:nemy_krafts/DesktopMode/DesktopScreens/third_div.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/2nd_Div_mobile.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/footer_mobile.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/ist_div_mobile.dart';
+import 'package:nemy_krafts/MobileMode/MobileWidgets/mobile_util.dart';
 import 'package:nemy_krafts/Screens/home_screen.dart';
 import 'package:nemy_krafts/responsive.dart';
 
@@ -31,7 +32,10 @@ class _MobileModeState extends State<MobileMode> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              IstDivMobile(size: size),
+              IstDivMobile(
+                size: size,
+                mobileUtil: MobileUtil(),
+              ),
               SecondDivMobile(size: size),
               ThirdDiv(size: size),
               MobileFooter(size: size),

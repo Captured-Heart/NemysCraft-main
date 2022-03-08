@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,13 +24,22 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.0.3
   carousel_slider: ^4.0.0
   font_awesome_flutter: ^9.2.0
   flutter_bloc: ^8.0.0
   flutter_lorem: ^2.0.0
+  url_launcher: ^6.0.20
+  flutter_animated_dialog: ^2.0.1
+  shimmer: ^2.0.0
+
+  #?FIREBASE PLUGINS
+  cloud_firestore: ^3.1.2
+  # firebase_core_web: ^1.6.1
+  firebase_core: ^1.13.1
+  firebase_auth: ^3.3.7
+  firebase_storage: ^10.2.9
 
   # bordered_text: ^2.0.0
 
@@ -38,15 +47,20 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
- 
   flutter_lints: ^1.0.0
 
+dependency_overrides:
+  firebase_messaging_platform_interface: 3.2.1
+  firebase_storage_platform_interface: 4.1.1
+  cloud_functions_platform_interface: 5.1.1
+  cloud_firestore_platform_interface: 5.5.1
+  firebase_auth_platform_interface: 6.2.1
+  firebase_database_platform_interface: 0.2.1+1
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

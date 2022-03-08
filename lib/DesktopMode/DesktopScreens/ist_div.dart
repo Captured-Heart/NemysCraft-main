@@ -100,7 +100,8 @@ class IstDiv extends StatelessWidget {
             options: CarouselOptions(
               autoPlay: true,
               enlargeCenterPage: true,
-              viewportFraction: 0.5,
+              viewportFraction: Responsive.isTablet(context) ? 0.6 : 0.5,
+              // disableCenter: true
             ),
             items: imageSliders,
           ),
@@ -126,7 +127,7 @@ class CarouselWidget extends StatelessWidget {
       height:
           Responsive.isDesktop(context) ? size.height * 0.6 : size.height * 0.3,
       width:
-          Responsive.isDesktop(context) ? size.width * 0.5 : size.width * 0.6,
+          Responsive.isTablet(context) ? size.width * 0.4 : size.width * 0.55,
       // color: Colors.amber,
       child: carouselWidget!,
 

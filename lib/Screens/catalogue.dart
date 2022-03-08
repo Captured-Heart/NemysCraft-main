@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:nemy_krafts/Screens/home_screen.dart';
 
 class CataloguePage extends StatelessWidget {
   const CataloguePage({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class CataloguePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xffE5E5E5),
+      appBar: CustomAppBar(size: size),
       body: SizedBox(
         height: size.height,
         width: size.width,
