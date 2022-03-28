@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemy_krafts/Screens/Contact/contact_left_options.dart';
-import 'package:nemy_krafts/Screens/Contact/contact.dart';
 import 'package:nemy_krafts/Screens/home_screen.dart';
 import 'package:nemy_krafts/database.dart';
 import 'package:nemy_krafts/dialogs.dart';

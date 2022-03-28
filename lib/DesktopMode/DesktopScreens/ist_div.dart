@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +88,7 @@ class _IstDivState extends State<IstDiv> {
                 future: getSliding(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   var nothingDae = !snapshot.hasData;
-      
+
                   return nothingDae
                       ? CarouselSlider(
                           options: CarouselOptions(
@@ -115,8 +116,10 @@ class _IstDivState extends State<IstDiv> {
                                       BorderRadius.all(Radius.circular(15.0)),
                                   child: Stack(
                                     children: <Widget>[
-                                      Image.network(
-                                        documents['url'],
+                                      CachedNetworkImage(
+                                        imageUrl: documents['url'],
+                                        placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator()),
                                         fit: BoxFit.fill,
                                         // width: 1000.0,
                                         height: widget.size.height,

@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nemy_krafts/Screens/catalogue.dart';
 import 'package:nemy_krafts/Screens/catalogue_mobile.dart';
@@ -19,20 +20,29 @@ class YoutubeSample extends StatelessWidget {
   final Size size;
   final Responsive? responsive;
   final String? imgUrl, description, imgLength, folderName;
-  
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         //?RECALL THAT THIS NAVIGATOR WILL CARRY THE COLLECTION URL FROM FIREBASE
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: ((context) => CatalogueMobile(
-                  folderName: folderName,
-                )),
-          ),
-        );
+        Responsive.isMobile(context) || Responsive.isTablet(context)
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => CatalogueMobile(
+                        folderName: folderName,
+                      )),
+                ),
+              )
+            : Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => CataloguePage(
+                        folderName: folderName,
+                      )),
+                ),
+              );
       },
       child: SizedBox(
         width: Responsive.isDesktop(context)
@@ -60,7 +70,6 @@ class YoutubeCard extends StatelessWidget {
 
   final Size size;
   final String imgUrl, description, imglength;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +88,12 @@ class YoutubeCard extends StatelessWidget {
             // width: size.width * 0.23,
             child: Stack(
               children: [
-                Image.network(
-                  imgUrl,
+                CachedNetworkImage(
+                  imageUrl: imgUrl,
                   width: size.width,
                   fit: BoxFit.fill,
+                  placeholder: (context, url) =>
+                      Center(child:  CircularProgressIndicator()),
                 ),
                 Positioned(
                   right: Responsive.isDesktop(context) ? 10 : 1,

@@ -22,7 +22,11 @@ class _MobileModeState extends State<MobileMode> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.square(80),
-        child: MobileAppBar(size: size),
+        child: MobileAppBar(
+          size: size,
+          title: NemyLogo(),
+          leading: MobileDrawer(),
+        ),
       ),
       drawer: NemyDrawer(size: size),
       body: SizedBox(
@@ -32,9 +36,7 @@ class _MobileModeState extends State<MobileMode> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              IstDivMobile(
-                size: size
-              ),
+              IstDivMobile(size: size),
               SizedBox(height: 30),
               SecondDivMobile(size: size),
               ThirdDiv(size: size),
@@ -51,25 +53,20 @@ class MobileAppBar extends StatelessWidget {
   const MobileAppBar({
     Key? key,
     required this.size,
+    required this.title,
+    required this.leading,
   }) : super(key: key);
 
   final Size size;
+  final Widget title, leading;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.black,
-      leading: Builder(builder: (context) {
-        return IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-        );
-      }),
+      leading: leading,
+
+      // MobileDrawer(),
       centerTitle: true,
       toolbarHeight: 120,
       automaticallyImplyLeading: false,
@@ -80,7 +77,8 @@ class MobileAppBar extends StatelessWidget {
             height: 1,
             color: Colors.blueAccent.shade100,
           )),
-      title: NemyLogo(),
+      title: title,
+      // NemyLogo(),
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -92,6 +90,27 @@ class MobileAppBar extends StatelessWidget {
       ],
       elevation: 3,
     );
+  }
+}
+
+class MobileDrawer extends StatelessWidget {
+  const MobileDrawer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(builder: (context) {
+      return IconButton(
+        icon: Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
+      );
+    });
   }
 }
 

@@ -58,11 +58,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     Key? key,
     required this.size,
-    this.responsive, required this.title,
+     required this.title,
   }) : super(key: key);
 
   final Size size;
-  final Responsive? responsive;
+  // final Responsive? responsive;
   final Widget title;
   @override
   Widget build(BuildContext context) {

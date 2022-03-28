@@ -1,11 +1,13 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nemy_krafts/DesktopMode/DesktopScreens/third_div.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/footer_mobile.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/ist_div_mobile.dart';
 import 'package:nemy_krafts/MobileMode/mobile.dart';
+import 'package:nemy_krafts/Screens/home_screen.dart';
 import '../DesktopMode/DesktopWidgets/ist div/welcome_border.dart';
 // import '../MobileMode/MobileWidgets/mobile_util.dart';
 
@@ -57,8 +59,7 @@ class _TabletModeState extends State<TabletMode> {
       appBar: PreferredSize(
           preferredSize: Size.square(80),
           child: MobileAppBar(
-            size: size,
-          )
+              size: size, title: NemyLogo(), leading: MobileDrawer())
           //  CustomAppBar(size: size),
           ),
       drawer: NemyDrawer(size: size),
@@ -213,8 +214,10 @@ class YoutubeSampleTablet extends StatelessWidget {
                 height: size.height * 0.34,
                 child: Stack(
                   children: [
-                    Image.network(
-                      imgUrl,
+                    CachedNetworkImage(
+                      imageUrl: imgUrl,
+                      placeholder: (context, url) =>
+                          Center(child: CircularProgressIndicator()),
                       width: size.width,
                       fit: BoxFit.fill,
                     ),

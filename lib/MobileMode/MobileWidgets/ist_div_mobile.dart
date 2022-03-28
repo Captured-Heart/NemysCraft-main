@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -80,6 +81,7 @@ class _IstDivMobileState extends State<IstDivMobile> {
               future: getSliding(),
               viewport: 0.8,
             ),
+            SizedBox(height: 10),
             WelcomeToNemyWidget(size: widget.size),
           ],
         ),
@@ -134,9 +136,13 @@ class CarouselMobile extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(15.0)),
                             child: Stack(
                               children: <Widget>[
-                                Image.network(
-                                  documents['url'],
+                                CachedNetworkImage(
+                                  imageUrl: documents['url'],
                                   fit: BoxFit.fill,
+                                  placeholder: (context, url) => Center(
+                                      child: CircularProgressIndicator(
+                                    color: Colors.blue[200],
+                                  )),
                                   // width: 1000.0,
                                   height: size.height,
                                 ),

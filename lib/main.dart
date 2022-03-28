@@ -2,6 +2,7 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:nemy_krafts/MobileMode/mobile.dart';
 import 'package:nemy_krafts/Screens/catalogue.dart';
 // import 'package:nemy_krafts/Navigation/generated_route.dart';
@@ -17,18 +18,18 @@ import 'Screens/About/about.dart';
 
 final config = Configurations();
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(
       options: FirebaseOptions(
-    apiKey: config.apiKey,
-    appId: config.apiKey,
-    messagingSenderId: config.messagingSenderId,
-    projectId: config.projectId,
-    storageBucket: config.storageBucket
-  ));
+          apiKey: config.apiKey,
+          appId: config.apiKey,
+          messagingSenderId: config.messagingSenderId,
+          projectId: config.projectId,
+          storageBucket: config.storageBucket));
   runApp(MyApp(
-      // appRouter: AppRouter(),
       ));
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatelessWidget {

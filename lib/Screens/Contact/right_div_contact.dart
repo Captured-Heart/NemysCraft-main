@@ -8,7 +8,7 @@ import 'package:nemy_krafts/responsive.dart';
 import 'package:shimmer/shimmer.dart';
 
 class RightDivContactUs extends StatefulWidget {
-  RightDivContactUs({
+  const RightDivContactUs({
     Key? key,
     required this.size,
   }) : super(key: key);

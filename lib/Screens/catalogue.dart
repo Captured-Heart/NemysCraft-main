@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,7 +6,7 @@ import 'package:nemy_krafts/Screens/home_screen.dart';
 
 class CataloguePage extends StatelessWidget {
   CataloguePage({Key? key, this.folderName}) : super(key: key);
- final String ? folderName;
+  final String? folderName;
 
   final db = FirebaseFirestore.instance;
   Future<QuerySnapshot> getCatalogue(BuildContext context) async {
@@ -19,25 +20,6 @@ class CataloguePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // final List<String> imgList = [
-    //   'assets/images/th.png',
-    //   'assets/images/th.png',
-    //   'assets/images/th.png',
-    //   'assets/images/th.png',
-    //   'assets/images/th.png',
-    // ];
-
-    // // ignore: override_on_non_overriding_member
-    // final List<Widget> imageSliders = imgList
-    //     .map(
-    //       (item) => Image.asset(
-    //         item,
-    //         width: size.width * 0.22,
-    //         height: size.height * 0.32,
-    //         fit: BoxFit.fill,
-    //       ),
-    //     )
-    //     .toList();
     return Scaffold(
       backgroundColor: Color(0xffE5E5E5),
       appBar: CustomAppBar(
@@ -97,9 +79,11 @@ class CataloguePage extends StatelessWidget {
                                 // runAlignment: WrapAlignment.spaceAround,
                                 crossAxisAlignment: WrapCrossAlignment.end,
                                 children: snapshot.data!.docs.map((documents) {
-                                  return 
-                                  Image.network(
-                                    documents['url'],
+                                  return CachedNetworkImage(
+                                    imageUrl: documents['url'],
+                                    // imageUrl: documents['url'],
+                                    placeholder: (context, url) => Center(
+                                        child: CircularProgressIndicator()),
                                     width: size.width * 0.22,
                                     height: size.height * 0.32,
                                     fit: BoxFit.fill,
@@ -169,7 +153,7 @@ class CataloguePage extends StatelessWidget {
                                   //     ? Text('Date Created: ')
                                   //     :
                                   Text(
-                                      'Date Created:  ${truncateString( docFileDetails.get('dateCreated'), 8)}'),
+                                      'Date Created:  ${truncateString(docFileDetails.get('dateCreated'), 10)}'),
                                   // nothingDae
                                   //     ? Text('Description: ')
                                   //     :
@@ -189,9 +173,9 @@ class CataloguePage extends StatelessWidget {
             );
           }),
     );
-    
   }
+
   String truncateString(String data, int length) {
-  return (data.length >= length) ? data.substring(0, length) : data;
-}
+    return (data.length >= length) ? data.substring(0, length) : data;
+  }
 }
