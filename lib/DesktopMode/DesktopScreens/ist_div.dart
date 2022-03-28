@@ -1,11 +1,14 @@
 // ignore_for_file: sized_box_for_whitespace
 
+import 'dart:ui';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nemy_krafts/DesktopMode/DesktopWidgets/ist%20div/welcome_nemy.dart';
 import 'package:nemy_krafts/responsive.dart';
 
-class IstDiv extends StatelessWidget {
+class IstDiv extends StatefulWidget {
   const IstDiv({
     Key? key,
     required this.size,
@@ -16,97 +19,117 @@ class IstDiv extends StatelessWidget {
   final Responsive? isResponsive;
 
   @override
+  State<IstDiv> createState() => _IstDivState();
+}
+
+class _IstDivState extends State<IstDiv> {
+  var db = FirebaseFirestore.instance;
+
+  Future<QuerySnapshot> getSliding() async =>
+      await db.collection('Sliding').get();
+
+  @override
+  void initState() {
+    getSliding();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final List<String> imgList = [
-      // 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-      // 'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-      // 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-      // 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-      // 'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-      // 'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
-      'assets/images/decor2.jpg',
-      'assets/images/myDp.jpg',
-      'assets/images/myDp.jpg',
+      'assets/images/th.png',
+      'assets/images/th.png',
+      'assets/images/th.png',
     ];
 
     // ignore: override_on_non_overriding_member
     final List<Widget> imageSliders = imgList
         .map((item) => Container(
-          margin: EdgeInsets.all(5.0),
-          child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(15.0)),
-              child: Stack(
-                children: <Widget>[
-                  Image.asset(
-                    item,
-                    fit: BoxFit.fill,
-                    // width: 1000.0,
-                    height: size.height,
-                  ),
-                  // Positioned(
-                  //   bottom: 0.0,
-                  //   left: 0.0,
-                  //   right: 0.0,
-                  //   child: Container(
-                  //     // decoration: BoxDecoration(
-                  //     //   gradient: LinearGradient(
-                  //     //     colors: [
-                  //     //       Color.fromARGB(200, 0, 0, 0),
-                  //     //       Color.fromARGB(0, 0, 0, 0)
-                  //     //     ],
-                  //     //     begin: Alignment.bottomCenter,
-                  //     //     end: Alignment.topCenter,
-                  //     //   ),
-                  //     // ),
-                  //     padding: EdgeInsets.symmetric(
-                  //         vertical: 10.0, horizontal: 20.0),
-                  //     child: Text(
-                  //       'No. ${imgList.indexOf(item)} image',
-                  //       style: TextStyle(
-                  //         color: Colors.white,
-                  //         fontSize: 20.0,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              )),
-        ))
+              margin: EdgeInsets.all(5.0),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                  child: Stack(
+                    children: <Widget>[
+                      Image.asset(
+                        item,
+                        fit: BoxFit.fill,
+                        height: widget.size.height,
+                      ),
+                    ],
+                  )),
+            ))
         .toList();
+
     return Container(
-      // margin: EdgeInsets.symmetric(horizontal: 1, vertical: 3),
-      // color: Colors.amber,
-      height: size.height * 0.75,
-      width: size.width,
+      height: widget.size.height * 0.75,
+      width: widget.size.width,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/images/decor2.jpg'),
-            fit: BoxFit.fill,
-            opacity: 0.5),
+          image: AssetImage('assets/images/decor.jpg'),
+          fit: BoxFit.fill,
+          // opacity: 0.3,
+        ),
       ),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-        Container(
-          // height: size.height * 0.3,
-          // color: Colors.green,
-          width: Responsive.isDesktop(context)
-              ? size.width * 0.35
-              : size.width * 0.20,
-          child: WelcomeToNemyWidget(size: size),
-        ),
-        CarouselWidget(
-          size: size,
-          carouselWidget: CarouselSlider(
-            options: CarouselOptions(
-              autoPlay: true,
-              enlargeCenterPage: true,
-              viewportFraction: Responsive.isTablet(context) ? 0.6 : 0.5,
-              // disableCenter: true
-            ),
-            items: imageSliders,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 7, sigmaY: 8),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Container(
+            // height: size.height * 0.3,
+            // color: Colors.green,
+            width: Responsive.isDesktop(context)
+                ? widget.size.width * 0.38
+                : widget.size.width * 0.20,
+            child: WelcomeToNemyWidget(size: widget.size),
           ),
-        ),
-      ]),
+          CarouselWidget(
+            size: widget.size,
+            carouselWidget: FutureBuilder(
+                future: getSliding(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  var nothingDae = !snapshot.hasData;
+      
+                  return nothingDae
+                      ? CarouselSlider(
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                            viewportFraction:
+                                Responsive.isTablet(context) ? 0.6 : 0.5,
+                            // disableCenter: true
+                          ),
+                          items: imageSliders,
+                        )
+                      : CarouselSlider(
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                            viewportFraction:
+                                Responsive.isTablet(context) ? 0.6 : 0.5,
+                            // disableCenter: true
+                          ),
+                          items: snapshot.data!.docs.map<Widget>((documents) {
+                            return Container(
+                              margin: EdgeInsets.all(5.0),
+                              child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Image.network(
+                                        documents['url'],
+                                        fit: BoxFit.fill,
+                                        // width: 1000.0,
+                                        height: widget.size.height,
+                                      ),
+                                    ],
+                                  )),
+                            );
+                          }).toList(),
+                        );
+                }),
+          ),
+        ]),
+      ),
     );
   }
 }

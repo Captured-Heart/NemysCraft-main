@@ -8,6 +8,14 @@ class FirebaseDb {
         .collection('Email Lists')
         .doc(DateTime.now().toString());
         return await emailList.set(emailMap);
+
+        
+  }
+  Future setContactList(contactMap) async {
+    final DocumentReference contactList = FirebaseFirestore.instance
+        .collection('Contact Lists')
+        .doc(DateTime.now().toString());
+        return await contactList.set(contactMap);
   }
 
 //?READING THEM FROM THE FIREBASE

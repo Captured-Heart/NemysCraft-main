@@ -79,7 +79,7 @@ class FooterMobileOptions extends StatelessWidget {
                 //!USING A DUMMY INSTEAD OF CIRCULARPROGRESSINDICATOR
                 return ExpansionTile(
                   trailing: Icon(
-                    FontAwesomeIcons.plus,
+                    FontAwesomeIcons.angleDown,
                     color: Colors.grey,
                     size: 18,
                   ),
@@ -122,7 +122,7 @@ class FooterMobileOptions extends StatelessWidget {
 
               return ExpansionTile(
                 trailing: Icon(
-                  FontAwesomeIcons.plus,
+                  FontAwesomeIcons.angleDown,
                   color: Colors.grey,
                   size: 18,
                 ),
@@ -165,7 +165,7 @@ class FooterMobileOptions extends StatelessWidget {
             builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
               return ExpansionTile(
                 trailing: Icon(
-                  FontAwesomeIcons.plus,
+                  FontAwesomeIcons.angleDown,
                   color: Colors.grey,
                   size: 18,
                 ),

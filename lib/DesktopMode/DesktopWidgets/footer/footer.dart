@@ -77,7 +77,7 @@ class _FooterState extends State<Footer> {
                     if (!snapshot.hasData) {
                       //!USING A DUMMY INSTEAD OF CIRCULARPROGRESSINDICATOR
                       return Container(
-                        width: widget.size.width * 0.2,
+                        width: widget.size.width * 0.21,
                         height: widget.size.height * 0.45,
                         // color: Colors.green,
                         child: Column(
@@ -133,7 +133,7 @@ class _FooterState extends State<Footer> {
                         // ignore: prefer_const_literals_to_create_immutables
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(bottom: 8.0, top: 13),
+                            padding: EdgeInsets.only(bottom: 6.0, top: 13),
                             child: Text(
                               'CONTACT US',
                               style: TextStyle(
@@ -195,7 +195,6 @@ class _FooterState extends State<Footer> {
                             icon: FontAwesomeIcons.facebookF,
                             iconColor: Colors.blue,
                             onTap: () {
-                              print(snapshot.data!.get('facebook').toString());
                               launchSocialMediaUrls(
                                   url: snapshot.data!
                                       .get('facebook')

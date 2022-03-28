@@ -17,7 +17,7 @@ class Contact extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.black,
-        appBar: CustomAppBar(size: size),
+        appBar: CustomAppBar(size: size, title: NemyLogo(),),
         drawer: Responsive.isDesktop(context) ? null : NemyDrawer(size: size),
         body: SizedBox(
           height: size.height,

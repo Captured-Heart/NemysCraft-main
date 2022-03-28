@@ -7,13 +7,14 @@ class ContactTextFormField extends StatelessWidget {
     required this.size,
     required this.width,
     required this.text,
-    this.maxLines,
+    this.maxLines, this.controller,
   }) : super(key: key);
 
   final Size size;
   final double width;
   final String text;
   final int? maxLines;
+  final TextEditingController ? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class ContactTextFormField extends StatelessWidget {
             child: TextFieldForm(
               hintText: null,
               maxLines: maxLines,
+              controller: controller,
             ),
             height: 50,
             width: width),

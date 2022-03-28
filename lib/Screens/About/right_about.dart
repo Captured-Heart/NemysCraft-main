@@ -31,7 +31,8 @@ class _AboutRightDivState extends State<AboutRightDiv> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: firebaseDb.getRightAbout(),
-        builder: (context,AsyncSnapshot<DocumentSnapshot> snapshot) {
+        builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          var nothingDae = !snapshot.hasData;
           return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,13 +87,23 @@ class _AboutRightDivState extends State<AboutRightDiv> {
                       color: Colors.grey,
                     ),
                   )),
-                  child: AboutRightDivOptions(
-                    subtitle: widget.placeHolder2,
-                    title: snapshot.data!.get('title'),
-                    // 'Building Construction',
-                    icon: FontAwesomeIcons.airbnb,
-                    size: widget.size,
-                  ),
+                  child: nothingDae
+                      ? AboutRightDivOptions(
+                          subtitle: widget.placeHolder2,
+                          // snapshot.data!.get('subtitle1'),
+                          title:
+                              //  snapshot.data!.get('title1'),
+                              'Building Construction',
+                          icon: FontAwesomeIcons.airbnb,
+                          size: widget.size,
+                        )
+                      : AboutRightDivOptions(
+                          subtitle: snapshot.data!.get('subtitle1'),
+                          title: snapshot.data!.get('title1'),
+                          // 'Building Construction',
+                          icon: FontAwesomeIcons.airbnb,
+                          size: widget.size,
+                        ),
                 ),
                 Container(
                   width: widget.size.width,
@@ -103,12 +114,19 @@ class _AboutRightDivState extends State<AboutRightDiv> {
                       color: Colors.grey,
                     ),
                   )),
-                  child: AboutRightDivOptions(
-                    subtitle: widget.placeHolder2,
-                    title: 'Building Construction',
-                    icon: FontAwesomeIcons.airFreshener,
-                    size: widget.size,
-                  ),
+                  child: nothingDae
+                      ? AboutRightDivOptions(
+                          subtitle: widget.placeHolder2,
+                          title: 'Building Construction',
+                          icon: FontAwesomeIcons.airFreshener,
+                          size: widget.size,
+                        )
+                      : AboutRightDivOptions(
+                          subtitle: snapshot.data!.get('subtitle2'),
+                          title: snapshot.data!.get('title2'),
+                          icon: FontAwesomeIcons.airFreshener,
+                          size: widget.size,
+                        ),
                 ),
                 Container(
                   width: widget.size.width,
@@ -119,12 +137,19 @@ class _AboutRightDivState extends State<AboutRightDiv> {
                       color: Colors.grey,
                     ),
                   )),
-                  child: AboutRightDivOptions(
-                    subtitle: widget.placeHolder2,
-                    title: 'Building Construction',
-                    icon: FontAwesomeIcons.addressCard,
-                    size: widget.size,
-                  ),
+                  child: nothingDae
+                      ? AboutRightDivOptions(
+                          subtitle: widget.placeHolder2,
+                          title: 'Building Construction',
+                          icon: FontAwesomeIcons.addressCard,
+                          size: widget.size,
+                        )
+                      : AboutRightDivOptions(
+                          subtitle: snapshot.data!.get('subtitle3'),
+                          title: snapshot.data!.get('title3'),
+                          icon: FontAwesomeIcons.addressCard,
+                          size: widget.size,
+                        ),
                 ),
                 Container(
                   width: widget.size.width,
@@ -135,12 +160,19 @@ class _AboutRightDivState extends State<AboutRightDiv> {
                       color: Colors.grey,
                     ),
                   )),
-                  child: AboutRightDivOptions(
-                    subtitle: widget.placeHolder2,
-                    title: 'Building Construction',
-                    icon: FontAwesomeIcons.camera,
-                    size: widget.size,
-                  ),
+                  child: nothingDae
+                      ? AboutRightDivOptions(
+                          subtitle: widget.placeHolder2,
+                          title: 'Building Construction',
+                          icon: FontAwesomeIcons.camera,
+                          size: widget.size,
+                        )
+                      : AboutRightDivOptions(
+                          subtitle: snapshot.data!.get('subtitle4'),
+                          title: snapshot.data!.get('title4'),
+                          icon: FontAwesomeIcons.addressCard,
+                          size: widget.size,
+                        ),
                 ),
               ]);
         });

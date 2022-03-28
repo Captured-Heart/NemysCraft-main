@@ -141,16 +141,17 @@ class WelcomeToNemyWidget extends StatelessWidget {
           ..color = Colors.black);
   }
 
+
   TextStyle nemyCraftsTextStyleMobile() {
     return TextStyle(
         fontSize:
             // 65,
-            size.width * 0.09,
-        letterSpacing: 3,
+            size.width * 0.12,
+        letterSpacing: 4,
         // fontWeight: FontWeight.bold,
         foreground: Paint()
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 4
+          ..strokeWidth = 2
           ..color = Colors.black);
   }
 }

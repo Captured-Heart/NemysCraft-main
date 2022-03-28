@@ -25,10 +25,11 @@ class SubmitButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: size.width,
-      height: size.height * 0.08,
-      padding: EdgeInsets.symmetric(
-        vertical: Responsive.isDesktop(context) ? 15 : 5,
-      ),
+      height: size.height * 0.06,
+      margin: EdgeInsets.symmetric(vertical: 10),
+      // padding: EdgeInsets.symmetric(
+      //   vertical: Responsive.isDesktop(context) ? 15 : 5,
+      // ),
       decoration: decoration,
       child: TextButton(
           onPressed: onPressed,

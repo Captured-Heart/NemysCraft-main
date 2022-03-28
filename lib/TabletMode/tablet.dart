@@ -1,10 +1,13 @@
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nemy_krafts/DesktopMode/DesktopScreens/third_div.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/footer_mobile.dart';
 import 'package:nemy_krafts/MobileMode/MobileWidgets/ist_div_mobile.dart';
 import 'package:nemy_krafts/MobileMode/mobile.dart';
 import '../DesktopMode/DesktopWidgets/ist div/welcome_border.dart';
-import '../MobileMode/MobileWidgets/mobile_util.dart';
+// import '../MobileMode/MobileWidgets/mobile_util.dart';
 
 class TabletMode extends StatefulWidget {
   const TabletMode({Key? key}) : super(key: key);
@@ -14,12 +17,26 @@ class TabletMode extends StatefulWidget {
 }
 
 class _TabletModeState extends State<TabletMode> {
+  var db = FirebaseFirestore.instance;
+
+  Future<QuerySnapshot> getSliding() async =>
+      await db.collection('Sliding').get();
+
+  @override
+  void initState() {
+    getSliding();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    final List<Widget> imageSliders = MobileUtil()
-        .imgList
+    final List<String> imgList = [
+      'assets/images/th.png',
+      'assets/images/th.png',
+      'assets/images/th.png',
+    ];
+    final List<Widget> imageSliders = imgList
         .map((item) => Container(
               margin: EdgeInsets.all(5.0),
               child: ClipRRect(
@@ -32,33 +49,6 @@ class _TabletModeState extends State<TabletMode> {
                         // width: 1000.0,
                         height: size.height,
                       ),
-                      // Positioned(
-                      //   bottom: 0.0,
-                      //   left: 0.0,
-                      //   right: 0.0,
-                      //   child: Container(
-                      //     // decoration: BoxDecoration(
-                      //     //   gradient: LinearGradient(
-                      //     //     colors: [
-                      //     //       Color.fromARGB(200, 0, 0, 0),
-                      //     //       Color.fromARGB(0, 0, 0, 0)
-                      //     //     ],
-                      //     //     begin: Alignment.bottomCenter,
-                      //     //     end: Alignment.topCenter,
-                      //     //   ),
-                      //     // ),
-                      //     padding: EdgeInsets.symmetric(
-                      //         vertical: 10.0, horizontal: 20.0),
-                      //     child: Text(
-                      //       'No. ${imgList.indexOf(item)} image',
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //         fontSize: 20.0,
-                      //         fontWeight: FontWeight.bold,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   )),
             ))
@@ -83,24 +73,28 @@ class _TabletModeState extends State<TabletMode> {
                 height: size.height * 0.65,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/decor2.jpg'),
+                    image: AssetImage('assets/images/decor.jpg'),
                     fit: BoxFit.fill,
-                    opacity: 0.5,
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.5,
-                      // color: Colors.green,
-                      child: TabletWelcomeToNemyWidget(size: size),
-                    ),
-                    CarouselMobile(
-                      imageSliders: imageSliders,
-                      size: size,
-                    )
-                  ],
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.5,
+                        // color: Colors.green,
+                        child: TabletWelcomeToNemyWidget(size: size),
+                      ),
+                      CarouselMobile(
+                        imageSliders: imageSliders,
+                        size: size,
+                        future: getSliding(),
+                        viewport: 0.4,
+                      )
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -120,20 +114,33 @@ class _TabletModeState extends State<TabletMode> {
                           ),
                         ),
                       ),
-                      Center(
-                        child: Wrap(
-                          spacing: 25,
-                          runSpacing: 20,
-                          alignment: WrapAlignment.spaceBetween,
-                          children: [
-                            YoutubeSampleTablet(size: size),
-                            YoutubeSampleTablet(size: size),
-                            YoutubeSampleTablet(size: size),
-
-                            // YoutubeSampleTablet(size: size),
-                          ],
-                        ),
-                      ),
+                      StreamBuilder(
+                          stream: getCollection(context),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            var nothingDae = snapshot.hasData;
+                            return nothingDae
+                                ? Center(
+                                    child: Wrap(
+                                        spacing: 25,
+                                        runSpacing: 40,
+                                        children: snapshot.data!.docs
+                                            .map((documents) {
+                                          var docId = documents.id.length;
+                                          return YoutubeSampleTablet(
+                                            size: size,
+                                            description:
+                                                documents['folderName'],
+                                            imglength: docId.toString(),
+                                            imgUrl: documents['coverUrl'],
+                                          );
+                                        }).toList()),
+                                  )
+                                : Center(
+                                    child: Text(
+                                        'There are no Events at the moment'),
+                                  );
+                          }),
                       // YoutubeSampleTablet(size: size),
                       // YoutubeSampleTablet(size: size),
                     ]),
@@ -146,6 +153,12 @@ class _TabletModeState extends State<TabletMode> {
         ),
       ),
     );
+  }
+
+  // final db = FirebaseFirestore.instance;
+
+  Stream<QuerySnapshot> getCollection(BuildContext context) async* {
+    yield* db.collection('Catalogue').snapshots();
   }
 }
 
@@ -175,9 +188,13 @@ class YoutubeSampleTablet extends StatelessWidget {
   const YoutubeSampleTablet({
     Key? key,
     required this.size,
+    required this.imgUrl,
+    required this.description,
+    required this.imglength,
   }) : super(key: key);
 
   final Size size;
+  final String imgUrl, description, imglength;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -196,8 +213,8 @@ class YoutubeSampleTablet extends StatelessWidget {
                 height: size.height * 0.34,
                 child: Stack(
                   children: [
-                    Image.asset(
-                      'assets/images/myDp.jpg',
+                    Image.network(
+                      imgUrl,
                       width: size.width,
                       fit: BoxFit.fill,
                     ),
@@ -205,17 +222,18 @@ class YoutubeSampleTablet extends StatelessWidget {
                       right: 1,
                       top: 1,
                       child: CircleAvatar(
-                        maxRadius: 17,
+                        maxRadius: 16,
                         backgroundColor: Color(0xffE5E5E5),
                         child: CircleAvatar(
-                          backgroundColor: Colors.red,
-                          maxRadius: 15,
+                          backgroundColor: Colors.teal[100],
+                          maxRadius: 13,
                           child: Text(
-                            '55+',
+                            '$imglength + ',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 13,
+                              color: Colors.blue[600],
+                              fontSize: 12,
                             ),
                           ),
                         ),
@@ -227,11 +245,30 @@ class YoutubeSampleTablet extends StatelessWidget {
               // SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'TWIce Alcohol Free jhvihldvjwbfjweb fhvbeafjvfdhl dslhadbscvhd',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Title: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: description.toUpperCase(),
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
                   ),
+                  // Text(
+                  //   // description,
+                  //   ' Alcohol Free jhvihldv fhvbeafjvfdhl dslhadbscvhd',
+                  //   style: TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                 ),
               ),
             ],

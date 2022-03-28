@@ -1,9 +1,10 @@
 // import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nemy_krafts/DesktopMode/DesktopWidgets/2nd%20Div/youtube_sample.dart';
 
 class SecondDivMobile extends StatelessWidget {
-  const SecondDivMobile({
+  SecondDivMobile({
     Key? key,
     required this.size,
   }) : super(key: key);
@@ -16,35 +17,49 @@ class SecondDivMobile extends StatelessWidget {
       color: Color(0xffD2D2D2).withOpacity(0.3),
       width: size.width,
       margin: EdgeInsets.only(top: 5),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Collections',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                ),
-              ),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Collections',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
             ),
-            Center(
-              child: Wrap(
-                spacing: 25,
-                runSpacing: 20,
-                alignment: WrapAlignment.spaceBetween,
-                children: [
-                  YoutubeSample(size: size),
-                  YoutubeSample(size: size),
-                  YoutubeSample(size: size),
-                  // YoutubeSample(size: size),
-                ],
-              ),
-            ),
-            // YoutubeSample(size: size),
-            // YoutubeSample(size: size),
-          ]),
+          ),
+        ),
+        StreamBuilder(
+            stream: getCollection(context),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              var nothingDae = snapshot.hasData;
+              return nothingDae
+                  ? Center(
+                      child: Wrap(
+                          spacing: 25,
+                          runSpacing: 40,
+                          children: snapshot.data!.docs.map((documents) {
+                            return YoutubeSample(
+                              size: size,
+                              description: documents['folderName'],
+                              imgLength: documents['imgLength'].toString(),
+                              imgUrl: documents['coverUrl'],
+                              folderName: documents['folderName'],
+                            );
+                          }).toList()),
+                    )
+                  : Center(
+                      child: Text('There are no Events at the moment'),
+                    );
+            }),
+        // YoutubeSample(size: size),
+        // YoutubeSample(size: size),
+      ]),
     );
+  }
+
+  final db = FirebaseFirestore.instance;
+
+  Stream<QuerySnapshot> getCollection(BuildContext context) async* {
+    yield* db.collection('Catalogue').snapshots();
   }
 }

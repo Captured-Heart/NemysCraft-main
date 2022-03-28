@@ -28,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.blueAccent.shade100,
       key: widget.scaffoldkey,
-      appBar: CustomAppBar(size: size),
+      appBar: CustomAppBar(size: size, title: NemyLogo(),),
       body: Container(
         height: size.height,
         width: size.width,
@@ -40,6 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
               //!THE HOMESCREEN DESIGN WILL BE HERE
 
               IstDiv(size: size),
+              SizedBox(height: size.height * 0.05),
+
               SecondDIv(size: size),
               ThirdDiv(size: size),
               SizedBox(height: 8),
@@ -56,11 +58,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     Key? key,
     required this.size,
-    this.responsive,
+    this.responsive, required this.title,
   }) : super(key: key);
 
   final Size size;
   final Responsive? responsive;
+  final Widget title;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -90,7 +93,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             height: 1,
             color: Colors.blueAccent.shade100,
           )),
-      title: NemyLogo(),
+      title: title,
+      // NemyLogo(),
       actions: [
         Responsive.isDesktop(context)
             ? NavBarOptions(size: size)
