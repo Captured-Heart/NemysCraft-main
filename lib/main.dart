@@ -7,6 +7,7 @@ import 'package:nemy_krafts/MobileMode/mobile.dart';
 import 'package:nemy_krafts/Screens/catalogue.dart';
 // import 'package:nemy_krafts/Navigation/generated_route.dart';
 import 'package:nemy_krafts/Screens/Contact/contact.dart';
+import 'package:nemy_krafts/Screens/view_full_image.dart';
 import 'package:nemy_krafts/TabletMode/tablet.dart';
 import 'package:nemy_krafts/config/config.dart';
 import 'package:nemy_krafts/cubit/firebaseurl_cubit.dart';
@@ -27,8 +28,7 @@ void main() async {
           messagingSenderId: config.messagingSenderId,
           projectId: config.projectId,
           storageBucket: config.storageBucket));
-  runApp(MyApp(
-      ));
+  runApp(MyApp());
   FlutterNativeSplash.remove();
 }
 
@@ -60,6 +60,10 @@ class MyApp extends StatelessWidget {
         '/catalogue': (context) => BlocProvider.value(
               value: _firebaseurlCubit,
               child: CataloguePage(),
+            ),
+        '/fullImage': (context) => BlocProvider.value(
+              value: _firebaseurlCubit,
+              child: ViewFullImage(),
             ),
       },
       home: BlocProvider<FirebaseurlCubit>(

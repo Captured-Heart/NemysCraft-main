@@ -1,5 +1,5 @@
 name: nemy_krafts
-description: A new Flutter project.
+description: At NemysCraft we keep to our words, we are creative Events decorators & great planners. Our cakes eeh? it will wow you. Give us a trial!
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^3.3.7
   firebase_storage: ^10.2.9
   flutter_native_splash: ^2.1.2+1
+  extended_image: ^6.0.2+1
 
   
 
@@ -64,7 +65,7 @@ flutter_icons:
 flutter_native_splash: 
   image: "assets/images/nemylogo.png"
   color: "#ffffff"
-  web: false
+  # web: false
 
 
 dependency_overrides:

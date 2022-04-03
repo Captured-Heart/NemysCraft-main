@@ -91,7 +91,7 @@ class YoutubeCard extends StatelessWidget {
                 CachedNetworkImage(
                   imageUrl: imgUrl,
                   width: size.width,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   placeholder: (context, url) =>
                       Center(child:  CircularProgressIndicator()),
                 ),

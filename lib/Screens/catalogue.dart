@@ -55,43 +55,28 @@ class CataloguePage extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SingleChildScrollView(
-                    child: SizedBox(
-                      width: size.width * 0.75,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child:
-                            // nothingDae
-                            //     ? Wrap(
-                            //         runSpacing: 25,
-                            //         spacing: size.width * 0.03,
-                            //         alignment: WrapAlignment.start,
-
-                            //         // runAlignment: WrapAlignment.spaceAround,
-                            //         crossAxisAlignment: WrapCrossAlignment.start,
-                            //         children: imageSliders,
-                            //       )
-                            //     :
-                            Wrap(
-                                runSpacing: 25,
-                                spacing: size.width * 0.03,
-                                alignment: WrapAlignment.start,
-                                // runAlignment: WrapAlignment.spaceAround,
-                                crossAxisAlignment: WrapCrossAlignment.end,
-                                children: snapshot.data!.docs.map((documents) {
-                                  return CachedNetworkImage(
-                                    imageUrl: documents['url'],
-                                    // imageUrl: documents['url'],
-                                    placeholder: (context, url) => Center(
-                                        child: CircularProgressIndicator()),
-                                    width: size.width * 0.22,
-                                    height: size.height * 0.32,
-                                    fit: BoxFit.fill,
-                                  );
-                                }).toList()),
-                        // }),
+                  SizedBox(height: 15),
+                  SizedBox(
+                    width: size.width * 0.75,
+                    child: GridView(
+                        gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                        ),
+                        children: snapshot.data!.docs.map((documents) {
+                    return CachedNetworkImage(
+                      imageUrl: documents['url'],
+                      // imageUrl: documents['url'],
+                      placeholder: (context, url) =>
+                          Center(child: CircularProgressIndicator()),
+                      // width: size.width * 0.22,
+                      // height: size.height * 0.32,
+                      fit: BoxFit.cover,
+                    );
+                        }).toList(),
                       ),
-                    ),
                   ),
                   Expanded(
                     child: Container(

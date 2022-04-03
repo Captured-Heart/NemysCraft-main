@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemy_krafts/MobileMode/mobile.dart';
 import 'package:nemy_krafts/Screens/home_screen.dart';
+import 'package:nemy_krafts/Screens/view_full_image.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CatalogueMobile extends StatelessWidget {
   CatalogueMobile({Key? key, this.folderName}) : super(key: key);
@@ -90,7 +92,7 @@ class CatalogueMobile extends StatelessWidget {
                             child: Icon(
                               FontAwesomeIcons.solidFolderOpen,
                               size: size.width * 0.2,
-                              color: Colors.blue,
+                              color: Colors.blueGrey,
                             ),
                           ),
                         ),
@@ -114,10 +116,11 @@ class CatalogueMobile extends StatelessWidget {
                                 Text(
                                   'Folder Properties',
                                   style: TextStyle(
-                                      wordSpacing: 5,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueGrey),
+                                    wordSpacing: 5,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey,
+                                  ),
                                 ),
                                 SizedBox(height: 5),
 
@@ -203,6 +206,21 @@ class CatalogueMobile extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Center(
+                    child: Shimmer.fromColors(
+                      highlightColor: Colors.red,
+                      baseColor: Colors.green,
+                      period: Duration(milliseconds: 1500),
+                      child: Text(
+                        'Double tap on any image to view full screen',
+                        style: TextStyle(
+                          // color: Colors.red,
+                          fontSize: size.width * 0.045
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 3),
                   Expanded(
                     // height: size.height * 0.8,
                     child: GridView(
@@ -212,13 +230,25 @@ class CatalogueMobile extends StatelessWidget {
                         crossAxisSpacing: 5,
                       ),
                       children: snapshot.data!.docs.map((documents) {
-                        return CachedNetworkImage(
-                          imageUrl: documents['url'],
-                          placeholder: (context, url) =>
-                              Center(child: CircularProgressIndicator()),
-                          // width: size.width * 0.47,
-                          // height: size.height * 0.3,
-                          fit: BoxFit.fill,
+                        //TODO: DOUBLE-TAP IMAGE TO VIEW SINGLE IMAGE
+                        return InkWell(
+                          onDoubleTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ViewFullImage(
+                                          imageUrl: documents['url'],
+                                          appBarTitle: '$folderName  ${documents['type']}',
+                                        )));
+                          },
+                          child: CachedNetworkImage(
+                            imageUrl: documents['url'],
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                            // width: size.width * 0.47,
+                            // height: size.height * 0.3,
+                            fit: BoxFit.fill,
+                          ),
                         );
                       }).toList(),
                     ),

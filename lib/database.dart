@@ -5,7 +5,7 @@ class FirebaseDb {
 
   Future setEmailList(emailMap) async {
     final DocumentReference emailList = FirebaseFirestore.instance
-        .collection('Email Lists')
+        .collection('Email_Lists')
         .doc(DateTime.now().toString());
         return await emailList.set(emailMap);
 
@@ -13,7 +13,7 @@ class FirebaseDb {
   }
   Future setContactList(contactMap) async {
     final DocumentReference contactList = FirebaseFirestore.instance
-        .collection('Contact Lists')
+        .collection('Contact_Lists')
         .doc(DateTime.now().toString());
         return await contactList.set(contactMap);
   }
