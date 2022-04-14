@@ -48,20 +48,21 @@ class _SecondDIvState extends State<SecondDIv> {
                 stream: getCollection(context),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   var nothingDae = snapshot.hasData;
+
                   return nothingDae
                       ? Center(
                           child: Wrap(
                               spacing: 25,
                               runSpacing: 25,
                               children: snapshot.data!.docs.map((documents) {
-                                // var docLength = documents.id.length;
-                                // var docId = documents.id;
                                 return YoutubeSample(
                                   size: widget.size,
-                                  description: documents['folderName'],
-                                  imgLength: documents['imgLength'].toString(),
+                                  description: documents['Description'],
                                   imgUrl: documents['coverUrl'],
                                   folderName: documents['folderName'],
+                                  type: documents['type'],
+                                  dateCreated: truncateString(
+                                      documents['dateCreated'], 10),
                                 );
                               }).toList()),
                         )
@@ -73,6 +74,10 @@ class _SecondDIvState extends State<SecondDIv> {
         ),
       ),
     );
+  }
+
+  String truncateString(String data, int length) {
+    return (data.length >= length) ? data.substring(0, length) : data;
   }
 
   final db = FirebaseFirestore.instance;

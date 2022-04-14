@@ -5,8 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nemy_krafts/Screens/home_screen.dart';
 
 class CataloguePage extends StatelessWidget {
-  CataloguePage({Key? key, this.folderName}) : super(key: key);
-  final String? folderName;
+  CataloguePage({Key? key, this.folderName,  this.description, this.type, this.dateCreated}) : super(key: key);
+  final String? folderName, description, type, dateCreated;
 
   final db = FirebaseFirestore.instance;
   Future<QuerySnapshot> getCatalogue(BuildContext context) async {
@@ -47,7 +47,8 @@ class CataloguePage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            var docFileDetails = snapshot.data!.docs.first;
+            //? THIS IS WRONG IN THE NEWEST PRACTISE(CHANGE IT TO PICK FROM FOLDERtITLE)
+            // var docFileDetails = snapshot.data!.docs.first;
 
             return SizedBox(
               height: size.height,
@@ -128,22 +129,22 @@ class CataloguePage extends StatelessWidget {
                                   // nothingDae
                                   //     ? Text('Type: ')
                                   //     :
-                                  Text('Type: ${docFileDetails.get('type')}'),
+                                  Text('Type: $type'),
                                   // nothingDae
                                   //     ? Text('Name: ')
                                   //     :
                                   Text(
-                                      'Name: ${docFileDetails.get('folderName')}'),
+                                      'Name: $folderName'),
                                   // nothingDae
                                   //     ? Text('Date Created: ')
                                   //     :
                                   Text(
-                                      'Date Created:  ${truncateString(docFileDetails.get('dateCreated'), 10)}'),
+                                      'Date Created:  $dateCreated'),
                                   // nothingDae
                                   //     ? Text('Description: ')
                                   //     :
                                   Text(
-                                      'Description:  ${docFileDetails.get('Description')}'),
+                                      'Description:  $description'),
                                 ],
                               )
                               // }),

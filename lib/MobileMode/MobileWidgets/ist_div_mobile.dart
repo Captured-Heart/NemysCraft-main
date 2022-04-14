@@ -119,6 +119,7 @@ class CarouselMobile extends StatelessWidget {
                       autoPlay: true,
                       enlargeCenterPage: true,
                       viewportFraction: viewport,
+                      autoPlayInterval: Duration(seconds: 2),
                     ),
                     items: imageSliders,
                   )
@@ -127,6 +128,7 @@ class CarouselMobile extends StatelessWidget {
                       autoPlay: true,
                       enlargeCenterPage: true,
                       viewportFraction: viewport,
+                      autoPlayInterval: Duration(seconds: 2),
                     ),
                     items: snapshot.data!.docs.map<Widget>((documents) {
                       return Container(

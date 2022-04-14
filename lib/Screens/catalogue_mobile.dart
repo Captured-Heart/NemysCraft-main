@@ -8,8 +8,8 @@ import 'package:nemy_krafts/Screens/view_full_image.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CatalogueMobile extends StatelessWidget {
-  CatalogueMobile({Key? key, this.folderName}) : super(key: key);
-  final String? folderName;
+  CatalogueMobile({Key? key, this.folderName, this.description, this.type, this.dateCreated}) : super(key: key);
+  final String? folderName, description, type, dateCreated;
 
   final db = FirebaseFirestore.instance;
   Future<QuerySnapshot> getCatalogue(BuildContext context) async {
@@ -59,7 +59,7 @@ class CatalogueMobile extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            var docFileDetails = snapshot.data!.docs.first;
+            // var docFileDetails = snapshot.data!.docs.first;
 
             return SizedBox(
               // height: size.height,
@@ -117,30 +117,30 @@ class CatalogueMobile extends StatelessWidget {
                                   'Folder Properties',
                                   style: TextStyle(
                                     wordSpacing: 5,
-                                    fontSize: 22,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.blueGrey,
                                   ),
                                 ),
                                 SizedBox(height: 5),
 
-                                RichText(
-                                  text: TextSpan(
-                                    text: 'Name:  ',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w300,
-                                      color: Colors.black,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text: docFileDetails.get('folderName'),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 5),
+                                // RichText(
+                                //   text: TextSpan(
+                                //     text: 'Name:  ',
+                                //     style: TextStyle(
+                                //       fontWeight: FontWeight.w300,
+                                //       color: Colors.black,
+                                //     ),
+                                //     children: [
+                                //       TextSpan(
+                                //         text: folderName,
+                                //         style: TextStyle(
+                                //             fontWeight: FontWeight.w500),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                                // SizedBox(height: 5),
                                 RichText(
                                   text: TextSpan(
                                     text: 'Event:  ',
@@ -150,7 +150,7 @@ class CatalogueMobile extends StatelessWidget {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: docFileDetails.get('type'),
+                                        text: type,
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -170,7 +170,7 @@ class CatalogueMobile extends StatelessWidget {
                                     ),
                                     children: [
                                       TextSpan(
-                                        text: docFileDetails.get('Description'),
+                                        text: description,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500),
                                       ),
@@ -189,7 +189,7 @@ class CatalogueMobile extends StatelessWidget {
                                     children: [
                                       TextSpan(
                                         text: truncateString(
-                                            docFileDetails.get('dateCreated'),
+                                            dateCreated!,
                                             10),
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500),

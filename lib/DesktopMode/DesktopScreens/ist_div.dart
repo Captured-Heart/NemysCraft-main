@@ -92,6 +92,7 @@ class _IstDivState extends State<IstDiv> {
                   return nothingDae
                       ? CarouselSlider(
                           options: CarouselOptions(
+                            autoPlayInterval: Duration(seconds: 2),
                             autoPlay: true,
                             enlargeCenterPage: true,
                             viewportFraction:
@@ -102,6 +103,8 @@ class _IstDivState extends State<IstDiv> {
                         )
                       : CarouselSlider(
                           options: CarouselOptions(
+                            autoPlayInterval: Duration(seconds: 2),
+
                             autoPlay: true,
                             enlargeCenterPage: true,
                             viewportFraction:

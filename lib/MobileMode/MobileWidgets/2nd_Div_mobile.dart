@@ -40,10 +40,12 @@ class SecondDivMobile extends StatelessWidget {
                           children: snapshot.data!.docs.map((documents) {
                             return YoutubeSample(
                               size: size,
-                              description: documents['folderName'],
-                              imgLength: documents['imgLength'].toString(),
+                              description: documents['Description'],
                               imgUrl: documents['coverUrl'],
                               folderName: documents['folderName'],
+                              type: documents['type'],
+                              dateCreated:
+                                  truncateString(documents['dateCreated'], 10),
                             );
                           }).toList()),
                     )
@@ -55,6 +57,10 @@ class SecondDivMobile extends StatelessWidget {
         // YoutubeSample(size: size),
       ]),
     );
+  }
+
+  String truncateString(String data, int length) {
+    return (data.length >= length) ? data.substring(0, length) : data;
   }
 
   final db = FirebaseFirestore.instance;
